@@ -170,7 +170,7 @@
 /* CARREGAR FEEDBACKS */
 async function carregarFeedback() {
     try {
-        const resposta = await fetch('/.netlify/functions/getFeedback');
+        const resposta = await fetch('/.netlify/functions/getFeedback.js');
         const dados = await resposta.json();
 
         let html = "";
