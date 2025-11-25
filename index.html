@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Donas do Pedaço - Golden Rocher Experience</title>
-
     <style>
         body {
             margin: 0;
@@ -15,10 +13,17 @@
             overflow-x: hidden;
         }
 
+        /* ✨ Brilho dourado pulsante */
         @keyframes goldenGlow {
             0% { text-shadow: 0 0 5px #c6a15b; }
             50% { text-shadow: 0 0 20px #ffd27a; }
             100% { text-shadow: 0 0 5px #c6a15b; }
+        }
+
+        /* ✨ Linhas douradas animadas */
+        @keyframes lineMove {
+            0% { stroke-dashoffset: 200; }
+            100% { stroke-dashoffset: 0; }
         }
 
         header {
@@ -28,6 +33,26 @@
             background: linear-gradient(to bottom, #1a1a1a, #0d0d0d);
             border-bottom: 2px solid #c6a15b;
             position: relative;
+        }
+
+        /* ✨ efeito de brilho no fundo */
+        header::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(198,161,91,0.25) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+        }
+
+        .line-art {
+            width: 300px;
+            margin: 0 auto 15px;
+            stroke-dasharray: 200;
+            animation: lineMove 3s ease forwards;
         }
 
         .title {
@@ -60,72 +85,83 @@
             border-left: 4px solid #c6a15b;
             padding-left: 10px;
             font-weight: bold;
+            position: relative;
         }
 
-        .description, .ingredients, .nutrition, .history {
+        /* ✨ pequena linha dourada animada ao lado dos títulos */
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #c6a15b, #e7d3a3, #c6a15b);
+            animation: lineMove 3s ease forwards;
+            stroke-dasharray: 200;
+        }
+
+        .description, .ingredients, .history, .nutrition {
             font-size: 18px;
             line-height: 1.8;
             margin-top: 15px;
         }
 
-        .feedback-section,
-        .feedback-list {
-            margin-top: 40px;
-            padding: 30px;
-            background: rgba(255, 215, 0, 0.05);
-            border: 1px solid gold;
-            border-radius: 10px;
+        /* ✨ partículas douradas no fundo */
+        @keyframes floatingSparkles {
+            0% { transform: translateY(0) translateX(0); opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-200px) translateX(50px); opacity: 0; }
         }
 
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            background: #111;
-            color: #fff;
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #c6a15b;
+            border-radius: 50%;
+            animation: floatingSparkles 6s linear infinite;
+            opacity: 0.8;
         }
 
-        button {
-            padding: 12px;
-            border-radius: 5px;
-            background: gold;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        #lista-feedbacks div {
-            padding: 10px;
-            border-bottom: 1px solid #444;
-            color: white;
+        @media (max-width: 768px) {
+            .title { font-size: 28px; }
+            .product-title { font-size: 26px; }
+            .section-title { font-size: 20px; }
         }
     </style>
 </head>
-
 <body>
 
+    <!-- ✨ Partículas douradas espalhadas pelo fundo -->
+    <div class="sparkle" style="top: 90%; left: 10%; animation-delay: 0s;"></div>
+    <div class="sparkle" style="top: 95%; left: 40%; animation-delay: 2s;"></div>
+    <div class="sparkle" style="top: 85%; left: 70%; animation-delay: 4s;"></div>
+    <div class="sparkle" style="top: 92%; left: 20%; animation-delay: 3s;"></div>
+    <div class="sparkle" style="top: 88%; left: 80%; animation-delay: 1s;"></div>
+
     <header>
+        <svg class="line-art" viewBox="0 0 200 60" fill="none" stroke="#c6a15b" stroke-width="2">
+            <path d="M10 50 Q20 10 40 50" />
+            <path d="M50 50 Q60 10 80 50" />
+            <path d="M90 50 Q100 10 120 50" />
+            <path d="M130 50 Q140 10 160 50" />
+        </svg>
         <div class="title">Donas do Pedaço</div>
     </header>
 
     <main>
-
         <div class="product-title">Golden Rocher Experience</div>
 
         <div class="section-title">Descrição do Bolo</div>
         <p class="description">
-            Uma experiência luxuosa inspirada no clássico Ferrero Rocher. Massa amanteigada branca ultra macia,
-            combinada com camadas generosas de mousse fantástico de chocolate, Nutella, avelã e amendoim triturado,
-            finalizado com uma glaçagem espelhada dourada que transforma cada fatia em um espetáculo.
+            Uma experiência luxuosa inspirada no clássico Ferrero Rocher. Massa amanteigada branca ultra macia, combinada com camadas generosas de mousse fantástico de chocolate, Nutella, avelã e amendoim triturado, finalizado com uma glaçagem espelhada dourada que transforma cada fatia em um espetáculo.
         </p>
 
         <div class="section-title">Ingredientes Detalhados</div>
         <p class="ingredients">
-            <strong>Massa:</strong> Farinha de trigo especial, manteiga de alta pureza, ovos selecionados, açúcar refinado,
-            essência natural de baunilha e leite integral.<br><br>
-            <strong>Recheio:</strong> Mousse de chocolate meio amargo, Nutella premium, creme de avelã torrada,
-            amendoim triturado crocante e creme fresco.<br><br>
+            <strong>Massa:</strong> Farinha de trigo especial, manteiga de alta pureza, ovos selecionados, açúcar refinado, essência natural de baunilha e leite integral.<br><br>
+            <strong>Recheio:</strong> Mousse de chocolate meio amargo, Nutella premium, creme de avelã torrada, amendoim triturado crocante e creme fresco.<br><br>
             <strong>Cobertura:</strong> Glaçagem de chocolate nobre com brilho dourado comestível.
         </p>
 
@@ -140,14 +176,9 @@
 
         <div class="section-title">História da Evolução dos Bolos</div>
         <p class="history">
-            Os bolos tiveram origem no Egito Antigo, onde eram pães adoçados com mel e frutas. Com o avanço das técnicas
-            culinárias romanas, passaram a incluir fermentação e especiarias. Na Idade Média, tornaram-se símbolos
-            de festividades e riqueza. No Renascimento, ganharam formas mais elaboradas e ingredientes refinados.
-            O século XIX trouxe o fermento químico, revolucionando sua textura. Hoje, bolos como o Golden Rocher
-            Experience representam a união perfeita entre tradição e inovação.
+            Os bolos tiveram origem no Egito Antigo, onde eram pães adoçados com mel e frutas. Com o avanço das técnicas culinárias romanas, passaram a incluir fermentação e especiarias. Na Idade Média, tornaram-se símbolos de festividades e riqueza.<br><br>
+            No Renascimento, ganharam formas mais elaboradas e ingredientes refinados. O século XIX trouxe o fermento químico, revolucionando sua textura. Já na confeitaria moderna, os bolos evoluíram para verdadeiras obras de arte — como o Golden Rocher Experience, que representa a união entre tradição, sofisticação e inovação.
         </p>
-
     </main>
-
 </body>
 </html>
