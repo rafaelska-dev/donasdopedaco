@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donas do Pedaço - Golden Rocher Experience</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Times New Roman', serif;
+            background-color: #0d0d0d;
+            color: #d7c29e;
+            overflow-x: hidden;
+        }
+
+        @keyframes goldenGlow {
+            0% { text-shadow: 0 0 5px #c6a15b; }
+            50% { text-shadow: 0 0 20px #ffd27a; }
+            100% { text-shadow: 0 0 5px #c6a15b; }
+        }
+
+        header {
+            width: 100%;
+            padding: 30px 0;
+            text-align: center;
+            background: linear-gradient(to bottom, #1a1a1a, #0d0d0d);
+            border-bottom: 2px solid #c6a15b;
+            position: relative;
+        }
+
+        .title {
+            font-size: 38px;
+            font-weight: bold;
+            color: #c6a15b;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: goldenGlow 3s infinite ease-in-out;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .product-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e7d3a3;
+            text-align: center;
+            margin-top: 20px;
+            animation: goldenGlow 4s infinite ease-in-out;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-top: 30px;
+            border-left: 4px solid #c6a15b;
+            padding-left: 10px;
+            font-weight: bold;
+        }
+
+        .description, .ingredients, .nutrition, .history {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-top: 15px;
+        }
+
+        .feedback-section,
+        .feedback-list {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid gold;
+            border-radius: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background: #111;
+            color: #fff;
+        }
+
+        button {
+            padding: 12px;
+            border-radius: 5px;
+            background: gold;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #lista-feedbacks div {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="title">Donas do Pedaço</div>
+    </header>
+
+    <main>
+
+        <div class="product-title">Golden Rocher Experience</div>
+
+        <div class="section-title">Descrição do Bolo</div>
+        <p class="description">
+            Uma experiência luxuosa inspirada no clássico Ferrero Rocher. Massa amanteigada branca ultra macia,
+            combinada com camadas generosas de mousse fantástico de chocolate, Nutella, avelã e amendoim triturado,
+            finalizado com uma glaçagem espelhada dourada que transforma cada fatia em um espetáculo.
+        </p>
+
+        <div class="section-title">Ingredientes Detalhados</div>
+        <p class="ingredients">
+            <strong>Massa:</strong> Farinha de trigo especial, manteiga de alta pureza, ovos selecionados, açúcar refinado,
+            essência natural de baunilha e leite integral.<br><br>
+            <strong>Recheio:</strong> Mousse de chocolate meio amargo, Nutella premium, creme de avelã torrada,
+            amendoim triturado crocante e creme fresco.<br><br>
+            <strong>Cobertura:</strong> Glaçagem de chocolate nobre com brilho dourado comestível.
+        </p>
+
+        <div class="section-title">Valor Calórico Aproximado</div>
+        <p class="nutrition">
+            Cada fatia de 120 g contém aproximadamente:<br>
+            • 480 kcal<br>
+            • 32 g de gordura<br>
+            • 46 g de carboidratos<br>
+            • 6 g de proteína
+        </p>
+
+        <div class="section-title">História da Evolução dos Bolos</div>
+        <p class="history">
+            Os bolos tiveram origem no Egito Antigo, onde eram pães adoçados com mel e frutas. Com o avanço das técnicas
+            culinárias romanas, passaram a incluir fermentação e especiarias. Na Idade Média, tornaram-se símbolos
+            de festividades e riqueza. No Renascimento, ganharam formas mais elaboradas e ingredientes refinados.
+            O século XIX trouxe o fermento químico, revolucionando sua textura. Hoje, bolos como o Golden Rocher
+            Experience representam a união perfeita entre tradição e inovação.
+        </p>
+
+        <!-- Feedback -->
+        <section class="feedback-section">
+            <h2 style="color: gold; text-align: center;">Deixe seu Feedback</h2>
+
+            <form id="fbForm">
+                <input id="nome" type="text" placeholder="Seu nome" required>
+                <textarea id="mensagem" placeholder="Seu feedback" rows="5" required></textarea>
+                <button type="submit">Enviar Feedback</button>
+            </form>
+        </section>
+
+        <!-- Lista Feedback -->
+        <section class="feedback-list">
+            <h2 style="color: gold; text-align: center;">O que estão dizendo</h2>
+            <div id="lista-feedbacks"></div>
+        </section>
+
+    </main>
+
+<script>
+/* CARREGAR FEEDBACKS */
+async function carregarFeedback() {
+    try {
+        const resposta = await fetch('/.netlify/functions/getFeedback');
+        const dados = await resposta.json();
+
+        let html = "";
+
+        dados.forEach(item => {
+            html += `
+                <div class="comentario">
+                    <strong>${item.nome}</strong> – <em>${item.data}</em>
+                    <p>${item.mensagem}</p>
+                </div>
+            `;
+        });
+
+        document.getElementById("lista-feedbacks").innerHTML = html;
+    } catch (err) {
+        console.log("Erro ao carregar feedbacks:", err);
+    }
+}
+
+/* CHAMAR AO CARREGAR A PÁGINA */
+carregarFeedback();
+
+/* ENVIAR FEEDBACK */
+document.getElementById("fbForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const mensagem = document.getElementById("mensagem").value;
+
+    await fetch("/.netlify/functions/saveFeedback", {
+        method: "POST",
+        body: JSON.stringify({ nome, mensagem })
+    });
+
+    document.getElementById("nome").value = "";
+    document.getElementById("mensagem").value = "";
+
+    carregarFeedback();
+});
+</script>
+
+</body>
+</html>
